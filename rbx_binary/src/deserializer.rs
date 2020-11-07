@@ -637,6 +637,7 @@ impl<R: Read> BinaryDeserializer<R> {
 
                     for _ in 0..referents.len() {
                         let id = chunk.read_u8()?;
+
                         if id == 0 {
                             rotations.push(Matrix3::new(
                                 Vector3::new(
@@ -655,17 +656,17 @@ impl<R: Read> BinaryDeserializer<R> {
                                     chunk.read_le_f32()?,
                                 ),
                             ));
+                            continue;
+                        }
+
+                        if let Some(rotation) = id_to_rotation(id) {
+                            rotations.push(rotation);
                         } else {
-                            let special_case = id_to_rotation(id);
-                            if special_case.is_some() {
-                                rotations.push(special_case.unwrap());
-                            } else {
-                                return Err(InnerError::BadCFrameOrientationId {
-                                    type_name: type_info.type_name.clone(),
-                                    prop_name,
-                                    id,
-                                });
-                            }
+                            return Err(InnerError::BadCFrameOrientationId {
+                                type_name: type_info.type_name.clone(),
+                                prop_name,
+                                id,
+                            });
                         }
                     }
 
