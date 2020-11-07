@@ -12,8 +12,8 @@ use rbx_dom_weak::types::{
 use serde::Serialize;
 
 use crate::{
-    chunk::Chunk, core::RbxReadExt, deserializer::special_case_to_rotation,
-    deserializer::FileHeader, types::Type,
+    cframe_special_cases::id_to_rotation, chunk::Chunk, core::RbxReadExt, deserializer::FileHeader,
+    types::Type,
 };
 
 #[derive(Debug, Serialize)]
@@ -318,7 +318,7 @@ impl DecodedValues {
                             ),
                         );
                     } else {
-                        rotations[i] = special_case_to_rotation(id).unwrap();
+                        rotations[i] = id_to_rotation(id).unwrap();
                     }
                 }
 

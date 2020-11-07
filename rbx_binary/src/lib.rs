@@ -7,6 +7,8 @@
 
 #![deny(missing_docs)]
 
+pub(crate) mod cframe_special_cases;
+
 mod chunk;
 mod core;
 mod deserializer;

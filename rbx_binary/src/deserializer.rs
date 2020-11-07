@@ -16,6 +16,7 @@ use rbx_reflection::DataType;
 use thiserror::Error;
 
 use crate::{
+    cframe_special_cases::id_to_rotation,
     chunk::Chunk,
     core::{
         find_canonical_property_descriptor, RbxReadExt, FILE_MAGIC_HEADER, FILE_SIGNATURE,
@@ -86,133 +87,6 @@ pub(crate) enum InnerError {
         prop_name: String,
         id: u8,
     },
-}
-
-// TODO potentially move this to a different file if/when we do the inverse for serializing
-pub(crate) fn special_case_to_rotation(id: u8) -> Option<Matrix3> {
-    match id {
-        0x02 => Some(Matrix3::new(
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-        )),
-        0x03 => Some(Matrix3::new(
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(0.0, 1.0, 0.0),
-        )),
-        0x05 => Some(Matrix3::new(
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-        )),
-        0x06 => Some(Matrix3::new(
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(0.0, -1.0, 0.0),
-        )),
-        0x07 => Some(Matrix3::new(
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-        )),
-        0x09 => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, 1.0, 0.0),
-        )),
-        0x0a => Some(Matrix3::new(
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-        )),
-        0x0c => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(1.0, 0.0, 0.0),
-            Vector3::new(0.0, -1.0, 0.0),
-        )),
-        0x0d => Some(Matrix3::new(
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(1.0, 0.0, 0.0),
-        )),
-        0x0e => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(1.0, 0.0, 0.0),
-        )),
-        0x10 => Some(Matrix3::new(
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(1.0, 0.0, 0.0),
-        )),
-        0x11 => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(1.0, 0.0, 0.0),
-        )),
-        0x14 => Some(Matrix3::new(
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-        )),
-        0x15 => Some(Matrix3::new(
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(0.0, 1.0, 0.0),
-        )),
-        0x17 => Some(Matrix3::new(
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-        )),
-        0x18 => Some(Matrix3::new(
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(0.0, -1.0, 0.0),
-        )),
-        0x19 => Some(Matrix3::new(
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-        )),
-        0x1b => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 1.0, 0.0),
-        )),
-        0x1c => Some(Matrix3::new(
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-        )),
-        0x1e => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-            Vector3::new(0.0, -1.0, 0.0),
-        )),
-        0x1f => Some(Matrix3::new(
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-        )),
-        0x20 => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(0.0, 1.0, 0.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-        )),
-        0x22 => Some(Matrix3::new(
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(0.0, 0.0, 1.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-        )),
-        0x23 => Some(Matrix3::new(
-            Vector3::new(0.0, 0.0, -1.0),
-            Vector3::new(0.0, -1.0, 0.0),
-            Vector3::new(-1.0, 0.0, 0.0),
-        )),
-        _ => None,
-    }
 }
 
 pub(crate) fn decode<R: Read>(reader: R) -> Result<WeakDom, Error> {
@@ -782,7 +656,7 @@ impl<R: Read> BinaryDeserializer<R> {
                                 ),
                             ));
                         } else {
-                            let special_case = special_case_to_rotation(id);
+                            let special_case = id_to_rotation(id);
                             if special_case.is_some() {
                                 rotations.push(special_case.unwrap());
                             } else {
