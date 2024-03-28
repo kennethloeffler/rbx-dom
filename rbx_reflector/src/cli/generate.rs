@@ -272,6 +272,9 @@ fn variant_type_from_str(value: &str) -> anyhow::Result<Option<VariantType>> {
         // These types are not generally implemented right now.
         "QDir" | "QFont" | "SystemAddress" | "CSGPropertyData" => return Ok(None),
 
-        _ => bail!("Unknown type {}", value),
+        _ => {
+            log::warn!("Unknown data type: {value}");
+            return Ok(None);
+        }
     }))
 }
