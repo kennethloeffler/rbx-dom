@@ -1,6 +1,7 @@
 # rbx\_reflection_database Changelog
 
 ## Unreleased Changes
+* Updated to Roblox version 642.
 
 ## 0.2.12+roblox-638 (2024-08-22)
 * Update to Roblox version 638.

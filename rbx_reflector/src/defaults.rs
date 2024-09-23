@@ -63,7 +63,7 @@ fn apply_instance_defaults(database: &mut ReflectionDatabase, instance: &Instanc
 
         match property_value.ty() {
             // We skip these types because their defaults aren't useful.
-            VariantType::Ref | VariantType::SharedString => continue,
+            VariantType::Ref => continue,
 
             _ => class
                 .default_properties
