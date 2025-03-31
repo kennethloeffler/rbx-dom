@@ -93,8 +93,31 @@ fn save_place_in_studio(path: &PathBuf) -> anyhow::Result<StudioInfo> {
         let script = format!(
             r#"
 tell application "System Events"
-    set frontmost of the first process whose unix id is {process_id} to true
-    keystroke "s" using command down
+    set robloxStudio to the first process whose unix id is {process_id}
+
+    -- The generated defaults place can cause Roblox Studio to create modal
+    -- dialogs that prevent command + S from saving the place. To work around
+    -- this, we need to repeatedly press escape then command + S until the Roblox
+    -- Studio process only has one window.
+
+    -- This could be hazardous - for example, escape may not close every child
+    -- window, or Roblox Studio could one day gain more windows. So, we'll also
+    -- cap the number of times this loop can execute to 20. That Roblox Studio
+    -- will never create more than 20 modals is probably a safe assumption.
+    set attemptCount to 0
+    repeat until count of windows of robloxStudio is 1 or attemptCount >= 20
+        set frontmost of robloxStudio to true
+
+        -- We should avoid making any keystrokes when Roblox Studio is not the
+        -- frontmost application. We just set it frontmost, but who knows what
+        -- the user is doing and how it could interact with AppleScript here...
+        if frontmost of robloxStudio then
+            key code 53
+            keystroke "s" using command down
+        end
+
+        set attemptCount to attemptCount + 1
+    end repeat
 end tell
 "#
         );
