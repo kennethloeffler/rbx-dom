@@ -6,7 +6,7 @@ on:
     branches: "master"
     paths: ["*.lua", "*.luau"]
 jobs: 
-  Lint:
+  luau_lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
