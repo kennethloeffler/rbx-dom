@@ -1,12 +1,11 @@
-name: Luau Linting
+name: Luau Lint and Format
 on:
   push:
     branches: "master"
   pull_request:
     branches: "master"
-    paths: ["*.lua", "*.luau"]
 jobs: 
-  Lint:
+  selene_and_stylua:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
