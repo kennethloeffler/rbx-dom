@@ -12633,7 +12633,12 @@
           "Tags": [],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "HSRContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -12755,7 +12760,12 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "TemporaryCageMeshContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         }
@@ -96446,8 +96456,8 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "HSRAssetId": {
-          "ContentId": ""
+        "HSRContent": {
+          "Content": "None"
         },
         "HSRData": {
           "SharedString": ""
@@ -96493,8 +96503,8 @@
         "Tags": {
           "Tags": []
         },
-        "TemporaryCageMeshId": {
-          "ContentId": ""
+        "TemporaryCageMeshContent": {
+          "Content": "None"
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -96722,7 +96732,12 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "TemporaryReferenceMeshContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -96814,8 +96829,8 @@
         "Enabled": {
           "Bool": true
         },
-        "HSRAssetId": {
-          "ContentId": ""
+        "HSRContent": {
+          "Content": "None"
         },
         "HSRData": {
           "SharedString": ""
@@ -96899,11 +96914,11 @@
         "Tags": {
           "Tags": []
         },
-        "TemporaryCageMeshId": {
-          "ContentId": ""
+        "TemporaryCageMeshContent": {
+          "Content": "None"
         },
-        "TemporaryReferenceId": {
-          "ContentId": ""
+        "TemporaryReferenceMeshContent": {
+          "Content": "None"
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
@@ -97002,8 +97017,8 @@
         "Capabilities": {
           "SecurityCapabilities": 0
         },
-        "HSRAssetId": {
-          "ContentId": ""
+        "HSRContent": {
+          "Content": "None"
         },
         "HSRData": {
           "SharedString": ""
@@ -97052,8 +97067,8 @@
         "Tags": {
           "Tags": []
         },
-        "TemporaryCageMeshId": {
-          "ContentId": ""
+        "TemporaryCageMeshContent": {
+          "Content": "None"
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
