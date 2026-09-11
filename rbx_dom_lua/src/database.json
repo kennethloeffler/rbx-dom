@@ -47141,7 +47141,12 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "TexturePackContent",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -47224,8 +47229,8 @@
         "Tags": {
           "Tags": []
         },
-        "TexturePack": {
-          "ContentId": ""
+        "TexturePackContent": {
+          "Content": "None"
         },
         "UniqueId": {
           "UniqueId": "00000000000000000000000000000000"
