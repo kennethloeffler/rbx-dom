@@ -42477,9 +42477,6 @@
         "Archivable": {
           "Bool": true
         },
-        "AssetId": {
-          "ContentId": ""
-        },
         "Attributes": {
           "Attributes": {}
         },
@@ -42572,6 +42569,9 @@
         },
         "ComponentIndex": {
           "Int32": -1
+        },
+        "Content": {
+          "Content": "None"
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -49942,9 +49942,6 @@
         "Archivable": {
           "Bool": true
         },
-        "AssetId": {
-          "ContentId": ""
-        },
         "Attributes": {
           "Attributes": {}
         },
@@ -50037,6 +50034,9 @@
         },
         "ComponentIndex": {
           "Int32": -1
+        },
+        "Content": {
+          "Content": "None"
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -52317,7 +52317,12 @@
           ],
           "Kind": {
             "Canonical": {
-              "Serialization": "Serializes"
+              "Serialization": {
+                "Migrate": {
+                  "To": "Content",
+                  "Migration": "ContentIdToContent"
+                }
+              }
             }
           }
         },
@@ -52582,9 +52587,6 @@
         "Archivable": {
           "Bool": true
         },
-        "AssetId": {
-          "ContentId": ""
-        },
         "Attributes": {
           "Attributes": {}
         },
@@ -52677,6 +52679,9 @@
         },
         "ComponentIndex": {
           "Int32": -1
+        },
+        "Content": {
+          "Content": "None"
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
@@ -88292,9 +88297,6 @@
         "Archivable": {
           "Bool": true
         },
-        "AssetId": {
-          "ContentId": ""
-        },
         "Attributes": {
           "Attributes": {}
         },
@@ -88387,6 +88389,9 @@
         },
         "ComponentIndex": {
           "Int32": -1
+        },
+        "Content": {
+          "Content": "None"
         },
         "CustomPhysicalProperties": {
           "PhysicalProperties": "Default"
